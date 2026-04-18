@@ -1,5 +1,27 @@
 import mongoose from 'mongoose'
 
+const sessionSchema = new mongoose.Schema(
+    {
+        sessionId: {
+            type: String,
+            required: true
+        },
+        refreshToken: {
+            type: String,
+            required: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        },
+        expiresAt: {
+            type: Date,
+            required: true
+        }
+    },
+    { _id: false }
+)
+
 const userSchema = new mongoose.Schema(
     {
         name: {
@@ -39,17 +61,15 @@ const userSchema = new mongoose.Schema(
             type: String,
             enum: ['local', 'google', 'github'],
             default: 'local'
+        },
+        sessions: {
+            type: [sessionSchema],
+            default: []
         }
     },
     { timestamps: true }
 )
 
-// New To Old indexing for sorting and filterig i.e Decreasing Order
 userSchema.index({ createdAt: -1 })
 
-
 export default mongoose.model('User', userSchema)
-
-
-// min and max are for NUMBERS, not STRINGS
-//unique: true -> It creates a unique index in MongoDB

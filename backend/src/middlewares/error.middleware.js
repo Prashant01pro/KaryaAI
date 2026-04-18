@@ -1,7 +1,11 @@
-export const globalErrorHandler=(err,req,res,next)=>{
-    console.error(err.message)
+export const globalErrorHandler = (err, req, res, next) => {
+    console.error(err)
 
-    res.status(err.status).json({
-        message:err.message
+    const statusCode = err.statusCode || 500
+    const status = err.status || (`${statusCode}`.startsWith('4') ? 'fail' : 'error')
+
+    res.status(statusCode).json({
+        status,
+        message: err.message || 'Something went wrong'
     })
 }
