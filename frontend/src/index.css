@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  /* Premium TaskFlow Palette */
+  --color-primary: #8126cf;
+  --color-primary-dim: #740ec2;
+  --color-primary-container: #c284ff;
+  --color-on-primary: #fbefff;
+  --color-on-primary-container: #360061;
+  --color-primary-fixed: #c284ff;
+  --color-primary-fixed-dim: #b971ff;
+  --color-on-primary-fixed: #000000;
+  --color-on-primary-fixed-variant: #430076;
+
+  --color-secondary: #4647d3;
+  --color-secondary-dim: #3939c7;
+  --color-secondary-container: #cdcdff;
+  --color-on-secondary: #f4f1ff;
+  --color-on-secondary-container: #2f2ebf;
+  --color-secondary-fixed: #cdcdff;
+  --color-secondary-fixed-dim: #bdbeff;
+  --color-on-secondary-fixed: #160bae;
+  --color-on-secondary-fixed-variant: #3a3ac8;
+
+  --color-tertiary: #a03647;
+  --color-tertiary-dim: #902a3c;
+  --color-tertiary-container: #ff909c;
+  --color-on-tertiary: #ffefef;
+  --color-on-tertiary-container: #65071f;
+  --color-tertiary-fixed: #ff909c;
+  --color-tertiary-fixed-dim: #fa7c8b;
+  --color-on-tertiary-fixed: #39000d;
+  --color-on-tertiary-fixed-variant: #711227;
+
+  --color-error: #b41340;
+  --color-error-dim: #a70138;
+  --color-error-container: #f74b6d;
+  --color-on-error: #ffefef;
+  --color-on-error-container: #510017;
+
+  --color-surface: #f5f7f9;
+  --color-on-surface: #2c2f31;
+  --color-surface-variant: #d9dde0;
+  --color-on-surface-variant: #595c5e;
+  --color-surface-dim: #d0d5d8;
+  --color-surface-bright: #f5f7f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eef1f3;
+  --color-surface-container: #e5e9eb;
+  --color-surface-container-high: #dfe3e6;
+  --color-surface-container-highest: #d9dde0;
+
+  --color-background: #f5f7f9;
+  --color-on-background: #2c2f31;
+  --color-outline: #747779;
+  --color-outline-variant: #abadaf;
+  --color-inverse-surface: #0b0f10;
+  --color-inverse-on-surface: #9a9d9f;
+  --color-inverse-primary: #b76dff;
+
+  /* Typography */
+  --font-manrope: "Manrope", sans-serif;
+
+  /* Transitions */
+  --animate-in: in 0.3s ease-out;
+  --animate-out: out 0.3s ease-in;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-manrope antialiased;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .ai-gradient {
+    background: linear-gradient(135deg, #8126cf 0%, #c284ff 100%);
+  }
+
+  .ai-gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
