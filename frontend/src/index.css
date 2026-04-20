@@ -90,4 +90,23 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-surface-container-high rounded-full;
+  }
 }
+
+/* Custom Markdown Prose */
+.prose-on-surface p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--color-on-surface-variant); font-size: 1.125rem; }
+.prose-on-surface h1, .prose-on-surface h2, .prose-on-surface h3 { font-weight: 900; color: var(--color-on-surface); letter-spacing: -0.025em; }
+.prose-on-surface ul { list-style: none; padding: 0; }
+.prose-on-surface li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; color: var(--color-on-surface-variant); }
+.prose-on-surface li::before { content: ""; position: absolute; left: 0; top: 0.65rem; width: 0.4rem; height: 0.4rem; border-radius: 9999px; background: var(--color-primary); }
+.prose-on-surface strong { font-weight: 900; color: var(--color-on-surface); }
+.prose-on-surface hr { border-color: var(--color-surface-container-high); margin: 3rem 0; }

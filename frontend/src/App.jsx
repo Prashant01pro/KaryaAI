@@ -3,12 +3,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import AppRoutes from './routes/AppRoutes';
 
+import { TaskProvider } from './context/TaskContext';
+
 function App() {
     return (
         <AuthProvider>
-            <Router>
-                <AppRoutes />
-            </Router>
+            <TaskProvider>
+                <Router>
+                    <AppRoutes />
+                </Router>
+            </TaskProvider>
         </AuthProvider>
     );
 }

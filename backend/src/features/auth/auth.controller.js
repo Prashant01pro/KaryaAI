@@ -4,7 +4,8 @@ import {
     loginService,
     logoutService,
     refreshSessionService,
-    registerService
+    registerService,
+    updateMeService
 } from './auth.service.js'
 import { catchAsync } from '../../utils/catchAsync.js'
 
@@ -47,6 +48,7 @@ export const register = catchAsync(async (req, res) => {
     res.status(201).json({
         status: 'success',
         message: 'Account created successfully',
+        accessToken,
         user
     })
 })
@@ -58,6 +60,7 @@ export const login = catchAsync(async (req, res) => {
     res.status(200).json({
         status: 'success',
         message: 'Logged in successfully',
+        accessToken,
         user
     })
 })
@@ -69,6 +72,7 @@ export const refreshSession = catchAsync(async (req, res) => {
     res.status(200).json({
         status: 'success',
         message: 'Session refreshed successfully',
+        accessToken,
         user
     })
 })
@@ -87,5 +91,15 @@ export const getMe = catchAsync(async (req, res) => {
     res.status(200).json({
         status: 'success',
         user: req.user
+    })
+})
+
+export const updateMe = catchAsync(async (req, res) => {
+    const user = await updateMeService(req.user._id, req.body)
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Profile updated successfully',
+        user
     })
 })

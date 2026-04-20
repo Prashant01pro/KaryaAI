@@ -206,3 +206,22 @@ export const logoutService = async (refreshToken) => {
         return
     }
 }
+
+export const updateMeService = async (userId, body) => {
+    const { name, email } = body
+    const updateData = {}
+
+    if (name) updateData.name = name.trim()
+    if (email) updateData.email = email.toLowerCase()
+
+    const user = await User.findByIdAndUpdate(userId, updateData, {
+        new: true,
+        runValidators: true
+    })
+
+    if (!user) {
+        throw new AppError('User not found', 404)
+    }
+
+    return buildSafeUser(user)
+}

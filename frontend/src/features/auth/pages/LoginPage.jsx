@@ -6,12 +6,27 @@ import { RiGithubFill } from 'react-icons/ri';
 import AuthLayout from '../../../layouts/AuthLayout';
 import { useAuth } from '../../../hooks/useAuth';
 
+import { useNavigate } from 'react-router-dom';
+
 const LoginPage = () => {
     const { login } = useAuth();
+    const navigate = useNavigate();
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState('');
+    const [formData, setFormData] = React.useState({ email: '', password: '' });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        login(); // Mock login for now
+        setLoading(true);
+        setError('');
+        try {
+            await login(formData);
+            navigate('/dashboard');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -20,6 +35,15 @@ const LoginPage = () => {
             subtitle="Please enter your credentials below."
         >
             <form className="space-y-8" onSubmit={handleSubmit}>
+                {error && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="p-4 bg-error/10 border border-error/20 rounded-2xl text-error text-sm font-bold"
+                    >
+                        {error}
+                    </motion.div>
+                )}
                 <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface-variant px-1" htmlFor="email">Email Address</label>
                     <div className="relative group">
@@ -27,10 +51,13 @@ const LoginPage = () => {
                             <Mail className="w-5 h-5" />
                         </div>
                         <input
+                            required
                             className="w-full bg-surface-container-high border-none rounded-2xl py-5 pl-14 pr-5 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
                             id="email"
                             placeholder="alex@taskflow.com"
                             type="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
                     </div>
                 </div>
@@ -45,22 +72,32 @@ const LoginPage = () => {
                             <Lock className="w-5 h-5" />
                         </div>
                         <input
+                            required
                             className="w-full bg-surface-container-high border-none rounded-2xl py-5 pl-14 pr-5 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
                             id="password"
                             placeholder="••••••••"
                             type="password"
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         />
                     </div>
                 </div>
 
                 <motion.button
+                    disabled={loading}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-5 rounded-full ai-gradient text-on-primary font-black text-xl hover:opacity-95 transition-all flex justify-center items-center gap-3 shadow-xl shadow-primary/20"
+                    className="w-full py-5 rounded-full ai-gradient text-on-primary font-black text-xl hover:opacity-95 transition-all flex justify-center items-center gap-3 shadow-xl shadow-primary/20 disabled:opacity-50"
                     type="submit"
                 >
-                    Sign In
-                    <ArrowRight className="w-6 h-6" />
+                    {loading ? (
+                        <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                        <>
+                            Sign In
+                            <ArrowRight className="w-6 h-6" />
+                        </>
+                    )}
                 </motion.button>
             </form>
 
