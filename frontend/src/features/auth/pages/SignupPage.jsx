@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { User, Mail, Lock, ArrowRight } from 'lucide-react';
+import { User, Mail, Lock, ArrowRight, AtSign } from 'lucide-react';
 import { RiGithubFill } from 'react-icons/ri';
 import AuthLayout from '../../../layouts/AuthLayout';
 
@@ -36,28 +36,28 @@ const SignupPage = () => {
 
     return (
         <AuthLayout 
-            title="Create your account" 
-            subtitle="Start your journey with monolithic grace."
+            title="Create account" 
+            subtitle="Start your journey with TaskFlow."
         >
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
                 {error && (
                     <motion.div 
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="p-4 bg-error/10 border border-error/20 rounded-2xl text-error text-sm font-bold"
+                        className="p-3 bg-error/10 border border-error/20 rounded-2xl text-error text-[10px] font-bold"
                     >
                         {error}
                     </motion.div>
                 )}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="name">Full Name</label>
                     <div className="relative group">
-                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
-                            <User className="w-5 h-5" />
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
+                            <User className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-14 pr-5 py-4 bg-surface-container-high rounded-2xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline font-medium" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
                             id="name" 
                             placeholder="John Doe" 
                             type="text"
@@ -67,17 +67,17 @@ const SignupPage = () => {
                     </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="username">Username</label>
                     <div className="relative group">
-                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
-                            <span className="material-symbols-outlined text-sm">alternate_email</span>
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
+                            <AtSign className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-14 pr-5 py-4 bg-surface-container-high rounded-2xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline font-medium" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
                             id="username" 
-                            placeholder="johndoe123" 
+                            placeholder="johndoe" 
                             type="text"
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
@@ -85,15 +85,15 @@ const SignupPage = () => {
                     </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="email">Email Address</label>
                     <div className="relative group">
-                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
-                            <Mail className="w-5 h-5" />
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
+                            <Mail className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-14 pr-5 py-4 bg-surface-container-high rounded-2xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline font-medium" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
                             id="email" 
                             placeholder="name@example.com" 
                             type="email"
@@ -103,15 +103,15 @@ const SignupPage = () => {
                     </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="password">Password</label>
                     <div className="relative group">
-                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
-                            <Lock className="w-5 h-5" />
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
+                            <Lock className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-14 pr-5 py-4 bg-surface-container-high rounded-2xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline font-medium" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
                             id="password" 
                             placeholder="••••••••" 
                             type="password"
@@ -121,41 +121,41 @@ const SignupPage = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-3 px-1">
-                    <input required className="w-5 h-5 rounded-lg text-primary focus:ring-primary/20 border-surface-variant bg-surface-container-high cursor-pointer" id="terms" type="checkbox"/>
-                    <label className="text-sm font-medium text-on-surface-variant" htmlFor="terms">I agree to the <a className="text-primary font-black hover:underline" href="#">Terms of Service</a></label>
+                <div className="flex items-center gap-2 px-1">
+                    <input required className="w-4 h-4 rounded text-primary focus:ring-primary/20 border-surface-variant bg-surface-container-high cursor-pointer" id="terms" type="checkbox"/>
+                    <label className="text-[10px] font-medium text-on-surface-variant" htmlFor="terms">I agree to the <a className="text-primary font-black hover:underline" href="#">Terms</a></label>
                 </div>
 
                 <motion.button 
                     disabled={loading}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full ai-gradient text-on-primary py-5 rounded-full font-black text-xl flex items-center justify-center gap-3 shadow-xl shadow-primary/20 transition-all disabled:opacity-50" 
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className="w-full ai-gradient text-on-primary py-3.5 rounded-full font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all disabled:opacity-50" 
                     type="submit"
                 >
                     {loading ? (
-                        <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin" />
                     ) : (
                         <>
                             Sign Up
-                            <ArrowRight className="w-6 h-6" />
+                            <ArrowRight className="w-5 h-5" />
                         </>
                     )}
                 </motion.button>
             </form>
 
-            <div className="grid grid-cols-2 gap-4">
-                <button className="flex items-center justify-center gap-3 py-4 bg-surface-container-lowest rounded-2xl font-black text-[10px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group">
-                    <img alt="Google" className="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" src="https://www.google.com/favicon.ico"/>
+            <div className="grid grid-cols-2 gap-3">
+                <button className="flex items-center justify-center gap-2 py-3 bg-surface-container-lowest rounded-xl font-black text-[9px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group">
+                    <img alt="Google" className="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" src="https://www.google.com/favicon.ico"/>
                     <span>Google</span>
                 </button>
-                <button className="flex items-center justify-center gap-3 py-4 bg-surface-container-lowest rounded-2xl font-black text-[10px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group">
-                    <RiGithubFill className="text-on-surface-variant group-hover:text-on-surface transition-colors" size={20} />
+                <button className="flex items-center justify-center gap-2 py-3 bg-surface-container-lowest rounded-xl font-black text-[9px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group">
+                    <RiGithubFill className="text-on-surface-variant group-hover:text-on-surface transition-colors" size={16} />
                     <span>GitHub</span>
                 </button>
             </div>
 
-            <p className="text-center text-on-surface-variant text-sm font-medium mt-4">
+            <p className="text-center text-on-surface-variant text-[11px] font-medium mt-1">
                 Already have an account? <Link to="/login" className="text-primary font-black hover:underline ml-1">Log in</Link>
             </p>
         </AuthLayout>

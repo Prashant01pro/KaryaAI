@@ -12,7 +12,9 @@ import {
     Sparkles,
     Plus,
     Wand2,
-    Trash2
+    Trash2,
+    Pencil,
+    Check
 } from 'lucide-react';
 import DashboardLayout from '../../../layouts/DashboardLayout';
 import { useTasks } from '../../../context/TaskContext';
@@ -29,7 +31,8 @@ const DashboardPage = () => {
         isModalOpen, 
         taskToEdit, 
         openModal, 
-        closeModal 
+        closeModal,
+        updateTask 
     } = useTasks();
     const { user } = useAuth();
     const [isStrategyModalOpen, setIsStrategyModalOpen] = useState(false);
@@ -43,6 +46,16 @@ const DashboardPage = () => {
 
     const handleEditTask = (task) => {
         openModal(task);
+    };
+
+    const handleToggleComplete = async (task) => {
+        try {
+            await updateTask(task._id, { 
+                status: task.status === 'Completed' ? 'Pending' : 'Completed' 
+            });
+        } catch (error) {
+            console.error('Failed to toggle task status:', error);
+        }
     };
 
     const handleStrategize = async (task) => {
@@ -129,14 +142,30 @@ const DashboardPage = () => {
                                         
                                         <div className="flex items-center gap-6 flex-1">
                                             <div 
-                                                onClick={() => handleEditTask(task)}
-                                                className="w-8 h-8 rounded-xl border-2 border-outline/20 flex items-center justify-center cursor-pointer hover:border-primary transition-all group/check translate-y-1 shrink-0"
+                                                onClick={() => handleToggleComplete(task)}
+                                                className={`w-8 h-8 rounded-xl border-2 flex items-center justify-center cursor-pointer transition-all group/check translate-y-1 shrink-0 ${
+                                                    task.status === 'Completed' 
+                                                        ? 'border-primary bg-primary/10 shadow-sm shadow-primary/20' 
+                                                        : 'border-outline/20 hover:border-primary'
+                                                }`}
                                             >
-                                                <div className="w-4 h-4 rounded-md ai-gradient opacity-0 group-hover/check:opacity-100 transition-opacity" />
+                                                <div className={`w-4 h-4 rounded-md ai-gradient transition-all ${
+                                                    task.status === 'Completed' ? 'opacity-100' : 'opacity-0 group-hover/check:opacity-60'
+                                                }`}>
+                                                    {task.status === 'Completed' && <Check className="w-4 h-4 text-on-primary p-0.5" />}
+                                                </div>
                                             </div>
                                             <div className="space-y-1">
-                                                <h5 className="text-2xl font-black tracking-tight text-on-surface line-clamp-1">{task.title}</h5>
-                                                <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-on-surface-variant text-[10px] font-black uppercase tracking-widest pt-1">
+                                                <h5 className={`text-2xl font-black tracking-tight transition-all duration-300 line-clamp-1 ${
+                                                    task.status === 'Completed' 
+                                                        ? 'text-on-surface-variant/40 line-through' 
+                                                        : 'text-on-surface'
+                                                }`}>
+                                                    {task.title}
+                                                </h5>
+                                                <div className={`flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] font-black uppercase tracking-widest pt-1 transition-all duration-300 ${
+                                                    task.status === 'Completed' ? 'opacity-40' : 'opacity-100'
+                                                }`}>
                                                     <span className="flex items-center gap-2">
                                                         <Calendar className="w-4 h-4 text-primary" />
                                                         {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Due Date'}
@@ -157,9 +186,16 @@ const DashboardPage = () => {
 
                                         <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
                                             <button 
-                                                disabled={isStrategizing}
+                                                onClick={() => handleEditTask(task)}
+                                                className="flex-1 sm:flex-none p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit"
+                                            >
+                                                <Pencil className="w-5 h-5 mx-auto" />
+                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/edit:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none">Edit Matrix</span>
+                                            </button>
+                                            <button 
+                                                disabled={isStrategizing || task.status === 'Completed'}
                                                 onClick={() => handleStrategize(task)}
-                                                className="flex-1 sm:flex-none p-4 bg-primary/10 text-primary rounded-2xl hover:bg-primary hover:text-white transition-all group/ai relative"
+                                                className="flex-1 sm:flex-none p-4 bg-primary/10 text-primary rounded-2xl hover:bg-primary hover:text-white transition-all group/ai relative disabled:opacity-30 disabled:grayscale"
                                             >
                                                 <Wand2 className="w-5 h-5 mx-auto" />
                                                 <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/ai:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none">Strategize</span>
