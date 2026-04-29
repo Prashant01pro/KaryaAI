@@ -57,8 +57,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     >
                         <div className="flex items-center justify-between mb-12">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 ai-gradient rounded-xl flex items-center justify-center text-white">
-                                    <Sparkles className="w-6 h-6" />
+                                <div className="w-8 h-8 ai-gradient rounded-lg flex items-center justify-center text-white">
+                                    <span className="material-symbols-outlined text-sm"><img className='rounded-lg scale-120' src="https://play-lh.googleusercontent.com/x-A_RKLUz6tmGrwQRZhDajcESjwGNlk4niGr2tOk_SwX6vBcRYU21iIba9eHQLCXrYU" alt="logo" /></span>
                                 </div>
                                 <span className="text-xl font-black tracking-tighter">KaryaAI</span>
                             </div>

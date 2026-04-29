@@ -20,7 +20,7 @@ const DashboardLayout = ({ children }) => {
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
     const { user } = useAuth();
     const { openModal } = useTasks();
-    
+
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
     const toggleUserSidebar = () => setIsUserSidebarOpen(!isUserSidebarOpen);
     const openEditProfile = () => {
@@ -44,8 +44,8 @@ const DashboardLayout = ({ children }) => {
                     </motion.button>
 
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 ai-gradient rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                            <Sparkles className="w-6 h-6" />
+                        <div className="w-8 h-8 ai-gradient rounded-lg flex items-center justify-center text-white">
+                            <span className="material-symbols-outlined text-sm"><img className='rounded-lg scale-120' src="https://play-lh.googleusercontent.com/x-A_RKLUz6tmGrwQRZhDajcESjwGNlk4niGr2tOk_SwX6vBcRYU21iIba9eHQLCXrYU" alt="logo" /></span>
                         </div>
                         <div className="hidden sm:block">
                             <h1 className="text-xl font-black tracking-tight leading-none">KaryaAI</h1>
@@ -86,7 +86,7 @@ const DashboardLayout = ({ children }) => {
 
                     <div className="h-8 w-[1px] bg-surface-container-high/50 mx-2"></div>
 
-                    <motion.div 
+                    <motion.div
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={toggleUserSidebar}
@@ -109,8 +109,8 @@ const DashboardLayout = ({ children }) => {
                 </div>
             </main>
 
-            <UserProfileSidebar 
-                isOpen={isUserSidebarOpen} 
+            <UserProfileSidebar
+                isOpen={isUserSidebarOpen}
                 onClose={() => setIsUserSidebarOpen(false)}
                 onEditProfile={openEditProfile}
             />

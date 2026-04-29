@@ -20,11 +20,11 @@ class AIService {
         }
         
         this.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Using 'gemini-flash-latest' which is confirmed available in your region
+        // Using 'gemini-flash-latest' which is available
         this.model = this.genAI.getGenerativeModel({ model: "gemini-flash-latest" });
         
         try {
-            // Looking for prompt in the same directory as this file
+            //prompt in the same directory as this file
             const promptPath = path.join(__dirname, "execution_strategist_prompt.md");
             
             try {

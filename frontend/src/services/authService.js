@@ -16,7 +16,7 @@ export const authService = {
     },
 
     signup: async (userData) => {
-        const response = await axiosInstance.post('/auth/signup', userData);
+        const response = await axiosInstance.post('/auth/register', userData);
         const { accessToken, user } = response.data;
         
         // Persist token
