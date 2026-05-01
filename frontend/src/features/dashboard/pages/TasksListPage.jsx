@@ -134,15 +134,15 @@ const TasksListPage = ({ type = 'all' }) => {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="relative group">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full md:w-auto">
+                        <div className="relative group flex-1 sm:flex-none">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-outline group-focus-within:text-primary transition-colors" />
                             <input 
                                 type="text"
                                 placeholder="Search sector..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-12 pr-6 py-3 bg-surface-container-low border border-surface-variant/10 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-sm min-w-[240px] transition-all"
+                                className="w-full sm:w-[240px] pl-12 pr-6 py-3 bg-surface-container-low border border-surface-variant/10 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-sm transition-all"
                             />
                         </div>
                         {type !== 'ai-assistant' && (

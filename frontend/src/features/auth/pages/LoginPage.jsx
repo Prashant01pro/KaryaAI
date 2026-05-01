@@ -45,17 +45,18 @@ const LoginPage = () => {
                     </motion.div>
                 )}
                 <div className="space-y-1.5">
-                    <label className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface-variant px-1" htmlFor="email">Email Address</label>
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface px-1" htmlFor="email">Email Address</label>
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
                             <Mail className="w-4 h-4" />
                         </div>
                         <input
                             required
-                            className="w-full bg-surface-container-high border-none rounded-xl py-3.5 pl-12 pr-4 text-on-surface text-sm placeholder:text-outline/40 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
+                            className="w-full bg-surface-container-high border-none rounded-xl py-3.5 pl-12 pr-4 text-on-surface text-sm placeholder:text-outline/60 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
                             id="email"
                             placeholder="alex@taskflow.com"
                             type="email"
+                            autoComplete="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
@@ -64,7 +65,7 @@ const LoginPage = () => {
 
                 <div className="space-y-1.5">
                     <div className="flex justify-between items-center px-1">
-                        <label className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface-variant" htmlFor="password">Password</label>
+                        <label className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface" htmlFor="password">Password</label>
                         <a className="text-primary text-[10px] font-black uppercase tracking-widest hover:underline" href="#">Forgot?</a>
                     </div>
                     <div className="relative group">
@@ -73,10 +74,11 @@ const LoginPage = () => {
                         </div>
                         <input
                             required
-                            className="w-full bg-surface-container-high border-none rounded-xl py-3.5 pl-12 pr-4 text-on-surface text-sm placeholder:text-outline/40 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
+                            className="w-full bg-surface-container-high border-none rounded-xl py-3.5 pl-12 pr-4 text-on-surface text-sm placeholder:text-outline/60 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
                             id="password"
                             placeholder="••••••••"
                             type="password"
+                            autoComplete="current-password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         />
@@ -108,11 +110,17 @@ const LoginPage = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-                <button className="flex items-center justify-center gap-2 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-95 group border border-surface-variant/10">
+                <button 
+                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`}
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-95 group border border-surface-variant/10"
+                >
                     <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" />
                     <span className="text-[10px] font-black uppercase tracking-widest">Google</span>
                 </button>
-                <button className="flex items-center justify-center gap-2 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-95 group border border-surface-variant/10">
+                <button 
+                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/github`}
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-95 group border border-surface-variant/10"
+                >
                     <RiGithubFill className="text-on-surface-variant group-hover:text-on-surface transition-colors" size={18} />
                     <span className="text-[10px] font-black uppercase tracking-widest">GitHub</span>
                 </button>

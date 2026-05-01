@@ -47,7 +47,7 @@ const cleanupExpiredSessions = (user) => {
     user.sessions = user.sessions.filter((session) => session.expiresAt > now)
 }
 
-const issueSessionTokens = async (user) => {
+export const issueSessionTokens = async (user) => {
     cleanupExpiredSessions(user)
 
     const sessionId = generateSessionId()

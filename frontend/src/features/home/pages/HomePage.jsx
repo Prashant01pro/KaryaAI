@@ -2,23 +2,23 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Sparkles, Layers, ShieldCheck, ArrowRight } from 'lucide-react';
-import { APP_NAME } from '../../../constants';
+import { APP_NAME, APP_DESCRIPTION } from '../../../constants';
 
 const HomePage = () => {
     return (
-        <div className="min-h-screen relative overflow-hidden bg-background">
+        <div className="dark min-h-screen relative overflow-x-hidden bg-[#0a0514] bg-[url('/bg-home.png')] bg-cover bg-center bg-no-repeat text-on-surface">
             {/* Top Bar for Landing Page */}
-            <header className="fixed top-0 left-0 w-full z-50 glass-panel border-b border-surface-container/50 px-8 py-4 flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 ai-gradient rounded-lg flex items-center justify-center text-white">
+            <header className="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/20 backdrop-blur-md border-b border-white/10 px-8 sm:px-14 py-4 flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 ai-gradient rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20">
                         <span className="material-symbols-outlined text-sm"><img className='rounded-lg scale-120' src="https://play-lh.googleusercontent.com/x-A_RKLUz6tmGrwQRZhDajcESjwGNlk4niGr2tOk_SwX6vBcRYU21iIba9eHQLCXrYU" alt="logo" /></span>
                     </div>
-                    <span className="text-xl font-extrabold tracking-tight">{APP_NAME}</span>
+                    <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-on-surface">{APP_NAME}</span>
                 </div>
 
-                <div className="flex items-center gap-6">
-                    <Link to="/login" className="text-sm font-bold text-on-surface-variant hover:text-primary transition-colors">Log In</Link>
-                    <Link to="/signup" className="ai-gradient text-on-primary px-6 py-2 rounded-full font-bold text-sm hover:opacity-90 active:scale-95 transition-all">
+                <div className="flex items-center gap-4 sm:gap-6">
+                    <Link to="/login" className="text-sm sm:text-md font-bold text-on-surface-variant hover:text-primary transition-colors">Log In</Link>
+                    <Link to="/signup" className="ai-gradient text-white px-5 py-2 sm:px-6 sm:py-2.5 rounded-full font-bold text-sm sm:text-md hover:shadow-lg hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
                         Get Started
                     </Link>
                 </div>
@@ -54,29 +54,29 @@ const HomePage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-center max-w-4xl"
+                    className="text-center max-w-4xl relative z-10"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-low border border-surface-variant/20 mb-8 pointer-events-none">
-                        <Sparkles className="w-4 h-4 text-primary" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Future of Productivity</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8 pointer-events-none">
+                        <Sparkles className="w-4 h-4 text-primary-fixed" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-fixed">The Future of Productivity</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-none mb-8 text-on-surface">
-                        Orchestrate Your Tasks with <span className="ai-gradient-text">Monolithic Grace</span>
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-8 text-on-surface">
+                        Turn <span className="ai-gradient-text">Chaos into Clarity</span><br /> Manage Your Tasks <span className="ai-gradient-text">Powered by AI</span>
                     </h1>
 
-                    <p className="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto mb-12">
-                        KaryaAI transcends ordinary task management. Experience a sanctuary where AI intelligence meets editorial design to create the ultimate workspace.
+                    <p className="text-lg md:text-xl text-on-surface-variant/90 leading-relaxed max-w-2xl mx-auto mb-12 drop-shadow-sm">
+                        {APP_DESCRIPTION}
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <Link to="/signup" className="group ai-gradient text-on-primary px-10 py-5 rounded-full font-black text-xl flex items-center gap-3 hover:opacity-95 transform transition-all active:scale-95 shadow-xl shadow-primary/20">
-                            Create Your Sanctuary
-                            <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center px-4 sm:px-0">
+                        <Link to="/signup" className="group ai-gradient text-white px-8 py-4 sm:px-10 sm:py-5 rounded-full font-black text-lg sm:text-xl flex items-center justify-center gap-3 hover:shadow-xl hover:shadow-primary/40 transform transition-all active:scale-95">
+                            Plan less. Do more
+                            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <button className="px-10 py-5 rounded-full bg-surface-container-high text-on-surface font-bold text-xl hover:bg-surface-variant transition-all">
+                        <Link to="/signup" className="px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white font-bold text-lg sm:text-xl hover:bg-white/20 transition-all text-center">
                             Explore Features
-                        </button>
+                        </Link>
                     </div>
                 </motion.div>
 
@@ -86,29 +86,29 @@ const HomePage = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32 w-full"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32 w-full relative z-10"
                 >
-                    <div className="bg-surface-container-lowest/50 backdrop-blur-sm p-10 rounded-[2.5rem] border border-surface-variant/10 hover:border-primary/20 transition-all group">
-                        <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                    <div className="bg-surface-container-lowest/30 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 hover:border-primary/40 hover:bg-surface-container-lowest/40 transition-all group shadow-2xl">
+                        <div className="w-14 h-14 rounded-2xl bg-primary-fixed/20 flex items-center justify-center text-primary-fixed mb-8 group-hover:scale-110 transition-transform">
                             <Sparkles className="w-8 h-8" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-4">AI Synthesis</h3>
+                        <h3 className="text-2xl font-bold mb-4 text-white">AI Synthesis</h3>
                         <p className="text-on-surface-variant leading-relaxed">Let our ethereal logic handle task prioritization and workflow optimization automatically.</p>
                     </div>
 
-                    <div className="bg-surface-container-lowest/50 backdrop-blur-sm p-10 rounded-[2.5rem] border border-surface-variant/10 hover:border-secondary/20 transition-all group">
-                        <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-8 group-hover:scale-110 transition-transform">
+                    <div className="bg-surface-container-lowest/30 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 hover:border-secondary/40 hover:bg-surface-container-lowest/40 transition-all group shadow-2xl">
+                        <div className="w-14 h-14 rounded-2xl bg-secondary-fixed/20 flex items-center justify-center text-secondary-fixed mb-8 group-hover:scale-110 transition-transform">
                             <Layers className="w-8 h-8" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-4">Tonal Layering</h3>
+                        <h3 className="text-2xl font-bold mb-4 text-white">Tonal Layering</h3>
                         <p className="text-on-surface-variant leading-relaxed">Clean, editorial layouts designed for maximum focus and minimal cognitive load.</p>
                     </div>
 
-                    <div className="bg-surface-container-lowest/50 backdrop-blur-sm p-10 rounded-[2.5rem] border border-surface-variant/10 hover:border-tertiary/20 transition-all group">
-                        <div className="w-14 h-14 rounded-2xl bg-tertiary/10 flex items-center justify-center text-tertiary mb-8 group-hover:scale-110 transition-transform">
+                    <div className="bg-surface-container-lowest/30 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 hover:border-tertiary/40 hover:bg-surface-container-lowest/40 transition-all group shadow-2xl">
+                        <div className="w-14 h-14 rounded-2xl bg-tertiary-fixed/20 flex items-center justify-center text-tertiary-fixed mb-8 group-hover:scale-110 transition-transform">
                             <ShieldCheck className="w-8 h-8" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-4">Ethereal Security</h3>
+                        <h3 className="text-2xl font-bold mb-4 text-white">Ethereal Security</h3>
                         <p className="text-on-surface-variant leading-relaxed">Enterprise-grade security wrapped in an interface that feels light as air.</p>
                     </div>
                 </motion.div>
@@ -153,14 +153,14 @@ const HomePage = () => {
             </main>
 
             {/* Footer */}
-            <footer className="relative mt-20 border-t border-surface-container/50 py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <footer className="relative mt-20 border-t border-white/10 py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 z-10 bg-black/40 backdrop-blur-md">
                 <div className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">
-                    © 2024 TaskFlow. Designed with Monolithic Grace.
+                    © 2026 KaryaAI. Designed with Monolithic Grace.
                 </div>
                 <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">
-                    <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-                    <a href="#" className="hover:text-primary transition-colors">Terms</a>
-                    <a href="#" className="hover:text-primary transition-colors">Security</a>
+                    <a href="#" className="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" className="hover:text-white transition-colors">Terms</a>
+                    <a href="#" className="hover:text-white transition-colors">Security</a>
                 </div>
             </footer>
         </div>

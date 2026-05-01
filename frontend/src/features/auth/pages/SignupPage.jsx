@@ -50,17 +50,18 @@ const SignupPage = () => {
                     </motion.div>
                 )}
                 <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="name">Full Name</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface ml-1" htmlFor="name">Full Name</label>
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
                             <User className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
                             id="name" 
                             placeholder="John Doe" 
                             type="text"
+                            autoComplete="name"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
@@ -68,17 +69,18 @@ const SignupPage = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="username">Username</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface ml-1" htmlFor="username">Username</label>
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
                             <AtSign className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
                             id="username" 
                             placeholder="johndoe" 
                             type="text"
+                            autoComplete="username"
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                         />
@@ -86,17 +88,18 @@ const SignupPage = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="email">Email Address</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface ml-1" htmlFor="email">Email Address</label>
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
                             <Mail className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
                             id="email" 
                             placeholder="name@example.com" 
                             type="email"
+                            autoComplete="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
@@ -104,17 +107,18 @@ const SignupPage = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant ml-1" htmlFor="password">Password</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-on-surface ml-1" htmlFor="password">Password</label>
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">
                             <Lock className="w-4 h-4" />
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/40 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
                             id="password" 
                             placeholder="••••••••" 
                             type="password"
+                            autoComplete="new-password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         />
@@ -145,11 +149,17 @@ const SignupPage = () => {
             </form>
 
             <div className="grid grid-cols-2 gap-3">
-                <button className="flex items-center justify-center gap-2 py-3 bg-surface-container-lowest rounded-xl font-black text-[9px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group">
+                <button 
+                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`}
+                    className="flex items-center justify-center gap-2 py-3 bg-surface-container-lowest rounded-xl font-black text-[9px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group"
+                >
                     <img alt="Google" className="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" src="https://www.google.com/favicon.ico"/>
                     <span>Google</span>
                 </button>
-                <button className="flex items-center justify-center gap-2 py-3 bg-surface-container-lowest rounded-xl font-black text-[9px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group">
+                <button 
+                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/github`}
+                    className="flex items-center justify-center gap-2 py-3 bg-surface-container-lowest rounded-xl font-black text-[9px] uppercase tracking-widest text-on-surface-variant hover:bg-white transition-all duration-200 border border-surface-variant/20 shadow-sm active:scale-95 group"
+                >
                     <RiGithubFill className="text-on-surface-variant group-hover:text-on-surface transition-colors" size={16} />
                     <span>GitHub</span>
                 </button>

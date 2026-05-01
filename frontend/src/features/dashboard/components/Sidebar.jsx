@@ -26,11 +26,13 @@ const SidebarLink = ({ icon, label, to = "#", active = false }) => (
 
 import { useAuth } from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
+import { LogOut, Sun, Moon, Monitor } from 'lucide-react';
+import { useTheme } from '../../../context/ThemeContext';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const { logout } = useAuth();
     const navigate = useNavigate();
+    const { theme, setTheme } = useTheme();
 
     const handleLogout = async () => {
         await logout();
@@ -72,17 +74,37 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                             <SidebarLink icon={<CheckSquare size={20} />} label="My Tasks" to="/dashboard/tasks" active={location.pathname === '/dashboard/tasks'} />
                             <SidebarLink icon={<Folder size={20} />} label="High Priority" to="/dashboard/high-priority" active={location.pathname === '/dashboard/high-priority'} />
                             <SidebarLink icon={<Sparkles size={20} />} label="AI Assistant" to="/dashboard/ai-assistant" active={location.pathname === '/dashboard/ai-assistant'} />
-                            <SidebarLink icon={<Settings size={20} />} label="Settings" to="/dashboard" />
                         </nav>
 
-                        <div className="mt-auto space-y-4">
-                            <div className="p-5 bg-primary/5 rounded-[2rem] border border-primary/10 space-y-3">
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Storage Efficiency</p>
-                                <div className="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
-                                    <div className="h-full bg-primary w-[65%]" />
+                        <div className="mt-auto space-y-6">
+                            {/* Theme Settings */}
+                            <div>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-outline mb-3 ml-2">Theme Preferences</p>
+                                <div className="flex bg-surface-container-low rounded-2xl p-1 border border-surface-variant/10">
+                                    <button
+                                        onClick={() => setTheme('light')}
+                                        title="Light Theme"
+                                        className={`flex-1 flex justify-center py-2.5 rounded-xl transition-all ${theme === 'light' ? 'bg-surface-container-lowest shadow-sm text-primary font-black' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50'}`}
+                                    >
+                                        <Sun size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => setTheme('dark')}
+                                        title="Dark Theme"
+                                        className={`flex-1 flex justify-center py-2.5 rounded-xl transition-all ${theme === 'dark' ? 'bg-surface-container-lowest shadow-sm text-primary font-black' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50'}`}
+                                    >
+                                        <Moon size={18} />
+                                    </button>
+                                    <button
+                                        onClick={() => setTheme('system')}
+                                        title="System Default"
+                                        className={`flex-1 flex justify-center py-2.5 rounded-xl transition-all ${theme === 'system' ? 'bg-surface-container-lowest shadow-sm text-primary font-black' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50'}`}
+                                    >
+                                        <Monitor size={18} />
+                                    </button>
                                 </div>
-                                <p className="text-xs font-bold text-on-surface-variant">65% of 10GB used</p>
                             </div>
+
                             <button
                                 onClick={handleLogout}
                                 className="w-full py-4 bg-error/10 text-error rounded-full font-black text-sm hover:bg-error/20 active:scale-95 transition-all flex items-center justify-center gap-2"

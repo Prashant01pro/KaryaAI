@@ -70,6 +70,65 @@
   body {
     @apply bg-background text-on-surface font-manrope antialiased;
   }
+
+  .dark {
+    /* Premium TaskFlow Dark Palette */
+    --color-primary: #c284ff;
+    --color-primary-dim: #b971ff;
+    --color-primary-container: #4c1182;
+    --color-on-primary: #360061;
+    --color-on-primary-container: #fbefff;
+    --color-primary-fixed: #c284ff;
+    --color-primary-fixed-dim: #b971ff;
+    --color-on-primary-fixed: #000000;
+    --color-on-primary-fixed-variant: #430076;
+
+    --color-secondary: #bdbeff;
+    --color-secondary-dim: #b1b3ff;
+    --color-secondary-container: #26249b;
+    --color-on-secondary: #160bae;
+    --color-on-secondary-container: #f4f1ff;
+    --color-secondary-fixed: #cdcdff;
+    --color-secondary-fixed-dim: #bdbeff;
+    --color-on-secondary-fixed: #160bae;
+    --color-on-secondary-fixed-variant: #3a3ac8;
+
+    --color-tertiary: #ffb3bc;
+    --color-tertiary-dim: #ff9ca8;
+    --color-tertiary-container: #821e31;
+    --color-on-tertiary: #520014;
+    --color-on-tertiary-container: #ffefef;
+    --color-tertiary-fixed: #ff909c;
+    --color-tertiary-fixed-dim: #fa7c8b;
+    --color-on-tertiary-fixed: #39000d;
+    --color-on-tertiary-fixed-variant: #711227;
+
+    --color-error: #ffb3c0;
+    --color-error-dim: #ff9cae;
+    --color-error-container: #8f062e;
+    --color-on-error: #5e0019;
+    --color-on-error-container: #ffefef;
+
+    --color-surface: #101214;
+    --color-on-surface: #e1e3e5;
+    --color-surface-variant: #3d4245;
+    --color-on-surface-variant: #a2a6a9;
+    --color-surface-dim: #0b0c0e;
+    --color-surface-bright: #323538;
+    --color-surface-container-lowest: #08090a;
+    --color-surface-container-low: #15181a;
+    --color-surface-container: #1b1f22;
+    --color-surface-container-high: #23272b;
+    --color-surface-container-highest: #2e3338;
+
+    --color-background: #101214;
+    --color-on-background: #e1e3e5;
+    --color-outline: #8c9094;
+    --color-outline-variant: #3d4245;
+    --color-inverse-surface: #e1e3e5;
+    --color-inverse-on-surface: #2c2f31;
+    --color-inverse-primary: #8126cf;
+  }
 }
 
 @layer utilities {
@@ -77,6 +136,10 @@
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+  }
+
+  .dark .glass-panel {
+    background: rgba(16, 18, 20, 0.8);
   }
 
   .ai-gradient {

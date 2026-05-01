@@ -5,7 +5,8 @@ import {
     logoutService,
     refreshSessionService,
     registerService,
-    updateMeService
+    updateMeService,
+    issueSessionTokens
 } from './auth.service.js'
 import { catchAsync } from '../../utils/catchAsync.js'
 
@@ -102,4 +103,15 @@ export const updateMe = catchAsync(async (req, res) => {
         message: 'Profile updated successfully',
         user
     })
+})
+
+export const socialAuthSuccess = catchAsync(async (req, res) => {
+    if (!req.user) {
+        return res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`)
+    }
+
+    const { accessToken, refreshToken } = await issueSessionTokens(req.user)
+    setAuthCookies(res, accessToken, refreshToken)
+
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard`)
 })

@@ -95,24 +95,25 @@ const DashboardPage = () => {
         <DashboardLayout>
             <div className="space-y-12">
                 {/* Welcome Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div className="space-y-2">
+                <div className="flex flex-col w-full lg:flex-row lg:items-end justify-between gap-8">
+                    <div className="space-y-6 w-full lg:w-3/4">
                         <motion.h2
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             className="text-5xl font-black tracking-tight"
                         >
-                            Focus suggest: {user?.name || 'Execute.'}
+                            What to focus on : {user?.name || 'Execute.'}
                         </motion.h2>
-                        <p className="text-on-surface-variant text-xl font-medium">
-                            You have <span className="text-primary font-black">{tasks.filter(t => t.priority === 'High').length} high-priority</span> targets in orbit.
+                        <p className="text-on-surface-variant text-lg md:text-xl w-full lg:w-3/4 font-medium">
+                            You have <span className="text-primary font-black">{tasks.filter(t => t.priority === 'High').length} high-priority</span> tasks.
+                            Add Tasks to get AI-powered personalized suggestions on how to complete it efficiently.
                         </p>
                     </div>
                     <button
                         onClick={handleAddTask}
-                        className="ai-gradient text-on-primary px-10 py-5 rounded-full font-black text-lg flex items-center gap-3 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
+                        className="ai-gradient text-on-primary px-8 py-4 sm:px-10 sm:py-5 rounded-full font-black text-base sm:text-lg flex flex-row items-center justify-center gap-4 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20 whitespace-nowrap"
                     >
-                        <Plus className="w-6 h-6" />
+                        <Plus className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={3} />
                         New Task
                     </button>
                 </div>
@@ -121,14 +122,14 @@ const DashboardPage = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     {/* Tasks Panel */}
                     <div className="lg:col-span-8 space-y-8">
-                        <div className="flex items-center justify-between pb-4 border-b border-surface-container-high/50">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-surface-container-high/50 gap-4">
                             <div className="space-y-1">
                                 <h4 className="text-3xl font-black tracking-tight">Active Tasks</h4>
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary break-words whitespace-normal leading-relaxed max-w-xs">
                                     {isToday ? "Showing Tasks for Today" : `Tasks for ${format(selectedDate, 'MMMM d, yyyy')}`}
                                 </p>
                             </div>
-                            <div className="flex gap-4">
+                            <div className="flex items-center gap-4 shrink-0">
                                 {!isToday && (
                                     <button
                                         onClick={() => setSelectedDate(new Date())}
@@ -163,7 +164,7 @@ const DashboardPage = () => {
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: i * 0.05 }}
-                                        className="bg-surface-container-lowest rounded-[2rem] p-8 group hover:shadow-[0px_20px_40px_rgba(44,47,49,0.06)] border border-surface-variant/5 transition-all relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+                                        className="bg-surface-container-lowest rounded-[2rem] p-6 sm:p-8 group hover:shadow-[0px_20px_40px_rgba(44,47,49,0.06)] border border-surface-variant/5 transition-all relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
                                     >
                                         <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 w-1 ai-gradient rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity" />
 
@@ -180,14 +181,14 @@ const DashboardPage = () => {
                                                     {task.status === 'Completed' && <Check className="w-4 h-4 text-on-primary p-0.5" />}
                                                 </div>
                                             </div>
-                                            <div className="space-y-1">
-                                                <h5 className={`text-2xl font-black tracking-tight transition-all duration-300 line-clamp-1 ${task.status === 'Completed'
+                                            <div className="space-y-1 min-w-0">
+                                                <h5 className={`text-xl sm:text-2xl font-black tracking-tight transition-all duration-300 break-words line-clamp-2 ${task.status === 'Completed'
                                                     ? 'text-on-surface-variant/40 line-through'
                                                     : 'text-on-surface'
                                                     }`}>
                                                     {task.title}
                                                 </h5>
-                                                <div className={`flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] font-black uppercase tracking-widest pt-1 transition-all duration-300 ${task.status === 'Completed' ? 'opacity-40' : 'opacity-100'
+                                                <div className={`flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-y-2 gap-x-4 text-[10px] font-black uppercase tracking-widest pt-1 transition-all duration-300 ${task.status === 'Completed' ? 'opacity-40' : 'opacity-100'
                                                     }`}>
                                                     <span className="flex items-center gap-2">
                                                         <Calendar className="w-4 h-4 text-primary" />
@@ -206,27 +207,26 @@ const DashboardPage = () => {
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
+                                        <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-surface-container-high/50 mt-4 sm:mt-0 justify-between sm:justify-start">
                                             <button
                                                 onClick={() => handleEditTask(task)}
-                                                className="flex-1 sm:flex-none p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit"
+                                                className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit flex justify-center items-center"
                                             >
-                                                <Pencil className="w-5 h-5 mx-auto" />
-                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/edit:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none">Edit Task</span>
+                                                <Pencil className="w-5 h-5" />
                                             </button>
                                             <button
                                                 disabled={isStrategizing || task.status === 'Completed'}
                                                 onClick={() => handleStrategize(task)}
-                                                className="flex-1 sm:flex-none p-4 bg-primary/10 text-primary rounded-2xl hover:bg-primary hover:text-white transition-all group/ai relative disabled:opacity-30 disabled:grayscale"
+                                                className="flex-1 sm:flex-none p-3 sm:p-4 bg-primary/10 text-primary rounded-2xl hover:bg-primary hover:text-white transition-all group/ai relative disabled:opacity-30 disabled:grayscale flex justify-center items-center"
                                             >
-                                                <Wand2 className="w-5 h-5 mx-auto" />
-                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/ai:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none">Strategize</span>
+                                                <Wand2 className="w-5 h-5" />
+                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/ai:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none z-10">Strategize</span>
                                             </button>
                                             <button
                                                 onClick={() => deleteTask(task._id)}
-                                                className="flex-1 sm:flex-none p-4 bg-surface-container-high text-on-surface-variant rounded-2xl hover:bg-error/10 hover:text-error transition-all"
+                                                className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-high text-on-surface-variant rounded-2xl hover:bg-error/10 hover:text-error transition-all flex justify-center items-center"
                                             >
-                                                <Trash2 className="w-5 h-5 mx-auto" />
+                                                <Trash2 className="w-5 h-5" />
                                             </button>
                                         </div>
                                     </motion.div>

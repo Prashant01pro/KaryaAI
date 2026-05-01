@@ -1,28 +1,30 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const AuthLayout = ({ children, title, subtitle }) => {
     return (
-        <div className="h-screen w-screen overflow-hidden flex flex-col bg-background text-on-surface relative">
+        <div className="min-h-screen w-screen flex flex-col bg-background text-on-surface relative overflow-x-hidden">
             {/* Header */}
             {/* Header - Made absolute to allow full-screen main content */}
-            <header className="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-10 py-6 bg-transparent">
-                <Link to="/" className="text-3xl font-extrabold tracking-tighter hover:opacity-80 transition-opacity flex gap-4"> <div className="w-8 h-8 ai-gradient rounded-lg flex items-center justify-center text-white">
-                    <span className="material-symbols-outlined text-sm"><img className='rounded-lg scale-120' src="https://play-lh.googleusercontent.com/x-A_RKLUz6tmGrwQRZhDajcESjwGNlk4niGr2tOk_SwX6vBcRYU21iIba9eHQLCXrYU" alt="logo" /></span>
-                </div>KaryaAI</Link>
-                <div className="flex items-center gap-8">
-                    <a className="text-on-surface-variant font-medium hover:text-primary transition-all active:scale-95" href="#">Support</a>
+            <header className="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-6 sm:px-10 py-6 bg-transparent">
+                <Link to="/" className="text-2xl sm:text-3xl font-extrabold tracking-tighter hover:opacity-80 transition-opacity flex items-center gap-3">
+                    <div className="w-8 h-8 ai-gradient rounded-lg flex items-center justify-center text-white shrink-0">
+                        <span className="material-symbols-outlined text-sm"><img className='rounded-lg scale-120' src="https://play-lh.googleusercontent.com/x-A_RKLUz6tmGrwQRZhDajcESjwGNlk4niGr2tOk_SwX6vBcRYU21iIba9eHQLCXrYU" alt="logo" /></span>
+                    </div>
+                    <span className="hidden xs:inline">KaryaAI</span>
+                </Link>
+                <div className="flex items-center gap-4 sm:gap-8">
+                    <a className="hidden sm:inline text-on-surface-variant font-medium hover:text-primary transition-all active:scale-95" href="#">Support</a>
                     <Link
                         to={title === 'Sign In' ? '/signup' : '/login'}
-                        className="ai-gradient text-on-primary px-5 py-2 rounded-full text-sm font-bold tracking-tight hover:opacity-90 active:scale-95 transition-all"
+                        className="ai-gradient text-on-primary px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold tracking-tight hover:opacity-90 active:scale-95 transition-all"
                     >
                         {title === 'Sign In' ? 'Create Account' : 'Login'}
                     </Link>
                 </div>
             </header>
 
-            <main className="flex-grow flex items-center justify-center relative px-6 lg:px-12 h-screen">
+            <main className="flex-grow flex items-center justify-center relative px-6 lg:px-12 py-24 lg:py-0 min-h-screen">
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-primary-container/30 blur-[150px] rounded-full opacity-60"></div>
                     <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-secondary-container/40 blur-[120px] rounded-full opacity-70"></div>

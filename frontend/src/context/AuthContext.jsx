@@ -51,19 +51,20 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkAuth = async () => {
-            const token = localStorage.getItem('accessToken');
-            if (token) {
-                try {
-                    const data = await authService.getMe();
-                    setUser(data.user);
-                    setIsAuthenticated(true);
-                } catch (error) {
+            try {
+                const data = await authService.getMe();
+                setUser(data.user);
+                setIsAuthenticated(true);
+            } catch (error) {
+                // Only log error if it's not a 401 (which is expected when not logged in)
+                if (error.response?.status !== 401) {
                     console.error('Session restoration failed', error);
-                    localStorage.removeItem('accessToken');
-                    setIsAuthenticated(false);
                 }
+                localStorage.removeItem('accessToken');
+                setIsAuthenticated(false);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
         checkAuth();
     }, []);
