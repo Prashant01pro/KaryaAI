@@ -120,7 +120,7 @@ const StrategyModal = ({ isOpen, onClose, strategy, taskTitle }) => {
                             {/* Content */}
                             <div 
                                 data-strategy-scroll="true"
-                                className="flex-1 overflow-y-auto p-10 sm:p-14 custom-scrollbar bg-white"
+                                className="flex-1 overflow-y-auto p-10 sm:p-14 custom-scrollbar bg-surface-container-lowest"
                             >
                                 <div className="prose prose-on-surface max-w-none">
                                     <ReactMarkdown 
