@@ -18,22 +18,62 @@ const StrategyModal = ({ isOpen, onClose, strategy, taskTitle }) => {
     const handleDownloadPDF = async () => {
         setIsDownloading(true);
         try {
-            const element = document.getElementById('strategy-content');
-            const canvas = await html2canvas(element, {
-                scale: 2,
-                useCORS: true,
-                backgroundColor: '#ffffff'
-            });
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+            const element = document.querySelector('[data-strategy-scroll="true"]');
             
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(`${taskTitle.replace(/\s+/g, '_')}_Strategy.pdf`);
+            if (!element) {
+                throw new Error('Content area not found');
+            }
+
+            // Capture the scrollable area
+            // We temporarily set overflow to visible to capture full height
+            const originalStyle = element.style.cssText;
+            element.style.overflow = 'visible';
+            element.style.maxHeight = 'none';
+            element.style.height = 'auto';
+
+            const canvas = await html2canvas(element, {
+                scale: 1.5,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                logging: true,
+                width: element.scrollWidth,
+                height: element.scrollHeight,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            });
+
+            // Restore original styles
+            element.style.cssText = originalStyle;
+
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth - 20; // Margin
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            
+            let heightLeft = imgHeight;
+            let position = 10; // Top margin
+
+            // Add first page
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // Add additional pages if content is longer than one page
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight + 10;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            const safeTitle = (taskTitle || 'strategy').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            pdf.save(`${safeTitle}_strategy.pdf`);
         } catch (error) {
-            console.error('PDF Export failed:', error);
-            alert('Failed to generate PDF. Please try again.');
+            console.error('PDF Export Error:', error);
+            alert(`PDF Generation failed: ${error.message}. Please try refreshing the page.`);
         } finally {
             setIsDownloading(false);
         }
@@ -56,52 +96,58 @@ const StrategyModal = ({ isOpen, onClose, strategy, taskTitle }) => {
                         exit={{ scale: 0.9, opacity: 0, y: 40 }}
                         className="relative w-full max-w-4xl bg-surface-container-lowest rounded-[3rem] shadow-2xl overflow-hidden border border-white/10 flex flex-col max-h-[90vh]"
                     >
-                        {/* Header */}
-                        <div className="ai-gradient p-10 text-white relative shrink-0">
-                            <div className="absolute top-0 right-0 w-64 h-full bg-white/10 blur-[60px] rounded-full -mr-20 -mt-10" />
-                            <div className="relative z-10 flex items-center justify-between">
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-white/20 backdrop-blur-md rounded-xl">
-                                            <Wand2 className="w-6 h-6" />
+                        {/* Wrapper for capture to avoid motion-div related issues */}
+                        <div data-strategy-content="true" className="flex-1 flex flex-col overflow-hidden bg-surface-container-lowest">
+                            {/* Header */}
+                            <div className="ai-gradient p-10 text-white relative shrink-0">
+                                <div className="absolute top-0 right-0 w-64 h-full bg-white/10 blur-[60px] rounded-full -mr-20 -mt-10" />
+                                <div className="relative z-10 flex items-center justify-between">
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-white/20 backdrop-blur-md rounded-xl">
+                                                <Wand2 className="w-6 h-6" />
+                                            </div>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">AI Strategy Core</span>
                                         </div>
-                                        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">AI Strategy Core</span>
+                                        <h3 className="text-3xl font-black tracking-tight">{taskTitle}</h3>
                                     </div>
-                                    <h3 className="text-3xl font-black tracking-tight">{taskTitle}</h3>
+                                    <button onClick={onClose} className="p-4 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-2xl transition-all data-html2canvas-ignore">
+                                        <X className="w-6 h-6" />
+                                    </button>
                                 </div>
-                                <button onClick={onClose} className="p-4 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-2xl transition-all">
-                                    <X className="w-6 h-6" />
-                                </button>
                             </div>
-                        </div>
 
-                        {/* Content */}
-                        <div className="flex-1 overflow-y-auto p-10 sm:p-14 custom-scrollbar bg-white" id="strategy-content">
-                            <div className="prose prose-on-surface max-w-none">
-                                <ReactMarkdown 
-                                    components={{
-                                        h1: ({node, ...props}) => <h1 className="text-4xl font-black tracking-tight mb-8 mt-12 first:mt-0" {...props} />,
-                                        h2: ({node, ...props}) => <h2 className="text-2xl font-black tracking-tight mb-6 mt-10 border-b border-surface-container-high pb-4" {...props} />,
-                                        h3: ({node, ...props}) => <h3 className="text-xl font-bold mb-4 mt-8" {...props} />,
-                                        p: ({node, ...props}) => <p className="text-on-surface-variant leading-relaxed mb-6 font-medium text-lg" {...props} />,
-                                        ul: ({node, ...props}) => <ul className="space-y-4 mb-8 list-none p-0" {...props} />,
-                                        li: ({node, ...props}) => (
-                                            <li className="flex items-start gap-4">
-                                                <div className="w-2 h-2 rounded-full bg-primary mt-2.5 shrink-0" />
-                                                <span className="text-on-surface-variant font-medium text-lg">{props.children}</span>
-                                            </li>
-                                        ),
-                                        strong: ({node, ...props}) => <strong className="font-black text-on-surface" {...props} />,
-                                        hr: () => <hr className="my-12 border-surface-container-high" />
-                                    }}
-                                >
-                                    {strategy}
-                                </ReactMarkdown>
+                            {/* Content */}
+                            <div 
+                                data-strategy-scroll="true"
+                                className="flex-1 overflow-y-auto p-10 sm:p-14 custom-scrollbar bg-surface-container-lowest"
+                            >
+                                <div className="prose prose-on-surface max-w-none">
+                                    <ReactMarkdown 
+                                        components={{
+                                            h1: ({node, ...props}) => <h1 className="text-4xl font-black tracking-tight mb-8 mt-12 first:mt-0" {...props} />,
+                                            h2: ({node, ...props}) => <h2 className="text-2xl font-black tracking-tight mb-6 mt-10 border-b border-surface-container-high pb-4" {...props} />,
+                                            h3: ({node, ...props}) => <h3 className="text-xl font-bold mb-4 mt-8" {...props} />,
+                                            p: ({node, ...props}) => <p className="text-on-surface-variant leading-relaxed mb-6 font-medium text-lg" {...props} />,
+                                            ul: ({node, ...props}) => <ul className="space-y-4 mb-8 list-none p-0" {...props} />,
+                                            li: ({node, ...props}) => (
+                                                <li className="flex items-start gap-4">
+                                                    <div className="w-2 h-2 rounded-full bg-primary mt-2.5 shrink-0" />
+                                                    <span className="text-on-surface-variant font-medium text-lg">{props.children}</span>
+                                                </li>
+                                            ),
+                                            strong: ({node, ...props}) => <strong className="font-black text-on-surface" {...props} />,
+                                            hr: () => <hr className="my-12 border-surface-container-high" />
+                                        }}
+                                    >
+                                        {strategy}
+                                    </ReactMarkdown>
+                                </div>
                             </div>
                         </div>
 
                         {/* Footer Actions */}
-                        <div className="p-8 border-t border-surface-container flex items-center justify-between bg-surface-container-lowest shrink-0">
+                        <div className="p-8 border-t border-surface-container flex items-center justify-between bg-surface-container-lowest shrink-0 data-html2canvas-ignore">
                             <div className="flex items-center gap-2 text-primary font-black text-xs uppercase tracking-widest">
                                 <Sparkles className="w-4 h-4" />
                                 Optimized by Gemini 1.5

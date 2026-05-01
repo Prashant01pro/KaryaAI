@@ -13,7 +13,9 @@ import {
     AlertCircle,
     ChevronDown,
     ChevronUp,
-    Download
+    Download,
+    Pencil,
+    Check
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -31,7 +33,8 @@ const TasksListPage = ({ type = 'all' }) => {
         deleteTask, 
         isModalOpen, 
         openModal, 
-        closeModal 
+        closeModal,
+        updateTask 
     } = useTasks();
 
     const [isStrategyModalOpen, setIsStrategyModalOpen] = useState(false);
@@ -78,6 +81,16 @@ const TasksListPage = ({ type = 'all' }) => {
         openModal(task);
     };
 
+    const handleToggleComplete = async (task) => {
+        try {
+            await updateTask(task._id, { 
+                status: task.status === 'Completed' ? 'Pending' : 'Completed' 
+            });
+        } catch (error) {
+            console.error('Failed to toggle task status:', error);
+        }
+    };
+
     const handleStrategize = async (task) => {
         setIsStrategizing(true);
         setActiveStrategyTitle(task.title);
@@ -121,15 +134,15 @@ const TasksListPage = ({ type = 'all' }) => {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="relative group">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full md:w-auto">
+                        <div className="relative group flex-1 sm:flex-none">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-outline group-focus-within:text-primary transition-colors" />
                             <input 
                                 type="text"
                                 placeholder="Search sector..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-12 pr-6 py-3 bg-surface-container-low border border-surface-variant/10 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-sm min-w-[240px] transition-all"
+                                className="w-full sm:w-[240px] pl-12 pr-6 py-3 bg-surface-container-low border border-surface-variant/10 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-sm transition-all"
                             />
                         </div>
                         {type !== 'ai-assistant' && (
@@ -245,17 +258,26 @@ const TasksListPage = ({ type = 'all' }) => {
                             >
                                 <div className="flex items-center gap-6 flex-1 w-full">
                                     <div 
-                                        className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
-                                            task.priority === 'High' ? 'bg-error/10 text-error' : 
-                                            task.priority === 'Moderate' ? 'bg-secondary/10 text-secondary' : 
-                                            'bg-surface-container-high/50 text-outline'
+                                        onClick={() => handleToggleComplete(task)}
+                                        className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 cursor-pointer transition-all ${
+                                            task.status === 'Completed' 
+                                                ? 'bg-primary/20 text-primary shadow-sm shadow-primary/20' 
+                                                : task.priority === 'High' ? 'bg-error/10 text-error' : 
+                                                  task.priority === 'Moderate' ? 'bg-secondary/10 text-secondary' : 
+                                                  'bg-surface-container-high/50 text-outline'
                                         }`}
                                     >
-                                        <div className="w-3 h-3 rounded-full bg-current" />
+                                        {task.status === 'Completed' ? (
+                                            <Check className="w-6 h-6" />
+                                        ) : (
+                                            <div className="w-3 h-3 rounded-full bg-current" />
+                                        )}
                                     </div>
                                     <div className="space-y-1 flex-1 min-w-0">
                                         <div className="flex items-center gap-3">
-                                            <h3 className="text-xl font-black tracking-tight text-on-surface truncate cursor-pointer hover:text-primary transition-colors" onClick={() => handleEditTask(task)}>
+                                            <h3 className={`text-xl font-black tracking-tight transition-all duration-300 truncate ${
+                                                task.status === 'Completed' ? 'text-on-surface-variant/40 line-through' : 'text-on-surface'
+                                            }`}>
                                                 {task.title}
                                             </h3>
                                             {task.aiStrategy && (
@@ -265,7 +287,9 @@ const TasksListPage = ({ type = 'all' }) => {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex items-center gap-6 text-[10px] font-black tracking-widest uppercase text-on-surface-variant/60">
+                                        <div className={`flex items-center gap-6 text-[10px] font-black tracking-widest uppercase transition-all duration-300 ${
+                                            task.status === 'Completed' ? 'opacity-40' : 'text-on-surface-variant/60'
+                                        }`}>
                                             <span className="flex items-center gap-2">
                                                 <Calendar className="w-3 h-3" />
                                                 {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Deadline'}
@@ -276,6 +300,13 @@ const TasksListPage = ({ type = 'all' }) => {
                                 </div>
 
                                 <div className="flex items-center gap-3 w-full sm:w-auto">
+                                    <button 
+                                        onClick={() => handleEditTask(task)}
+                                        className="p-3 bg-surface-container-low text-on-surface-variant rounded-xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit"
+                                    >
+                                        <Pencil className="w-5 h-5" />
+                                        <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/edit:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Edit Item</span>
+                                    </button>
                                     {task.aiStrategy ? (
                                         <button 
                                             onClick={() => showSavedStrategy(task)}
@@ -286,9 +317,9 @@ const TasksListPage = ({ type = 'all' }) => {
                                         </button>
                                     ) : (
                                         <button 
-                                            disabled={isStrategizing}
+                                            disabled={isStrategizing || task.status === 'Completed'}
                                             onClick={() => handleStrategize(task)}
-                                            className="flex-1 sm:flex-none p-3 bg-surface-container-low text-primary rounded-xl hover:bg-primary/10 transition-all group/ai relative"
+                                            className="flex-1 sm:flex-none p-3 bg-surface-container-low text-primary rounded-xl hover:bg-primary/10 transition-all group/ai relative disabled:opacity-30 disabled:grayscale"
                                         >
                                             <Wand2 className="w-5 h-5" />
                                             <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/ai:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Get AI Strategy</span>

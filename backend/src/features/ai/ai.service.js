@@ -20,22 +20,22 @@ class AIService {
         }
         
         this.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Using 'gemini-flash-latest' which is confirmed available in your region
+        // Using 'gemini-flash-latest' which is available
         this.model = this.genAI.getGenerativeModel({ model: "gemini-flash-latest" });
         
         try {
-            // Looking for prompt in the same directory as this file
+            //prompt in the same directory as this file
             const promptPath = path.join(__dirname, "execution_strategist_prompt.md");
             
             try {
                 this.promptTemplate = await fs.readFile(promptPath, "utf-8");
-                console.log(`AI Strategy prompt loaded from: ${promptPath}`);
+
             } catch (readError) {
                 console.error(`Failed to load prompt from ${promptPath}, trying backup...`);
                 // Fallback to project root if needed (adjusting for common project structures)
                 const backupPath = path.join(process.cwd(), "src", "features", "ai", "execution_strategist_prompt.md");
                 this.promptTemplate = await fs.readFile(backupPath, "utf-8");
-                console.log(`AI Strategy prompt loaded from backup: ${backupPath}`);
+
             }
 
             if (!this.promptTemplate) {
@@ -82,7 +82,7 @@ Please provide an optimized execution plan following your strict guidelines.
             // Try fallback if primary model fails with 404
             if (error.status === 404) {
                 try {
-                    console.log("Model not found, attempting fallback with gemini-2.5-flash...");
+
                     const fallbackModel = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
                     const result = await fallbackModel.generateContent(fullPrompt);
                     const response = await result.response;

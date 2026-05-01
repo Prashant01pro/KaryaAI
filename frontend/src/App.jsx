@@ -4,16 +4,19 @@ import { AuthProvider } from './context/AuthContext';
 import AppRoutes from './routes/AppRoutes';
 
 import { TaskProvider } from './context/TaskContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
     return (
-        <AuthProvider>
-            <TaskProvider>
-                <Router>
-                    <AppRoutes />
-                </Router>
-            </TaskProvider>
-        </AuthProvider>
+        <ThemeProvider>
+            <AuthProvider>
+                <TaskProvider>
+                    <Router>
+                        <AppRoutes />
+                    </Router>
+                </TaskProvider>
+            </AuthProvider>
+        </ThemeProvider>
     );
 }
 

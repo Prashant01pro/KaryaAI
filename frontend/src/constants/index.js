@@ -1,12 +1,5 @@
 export const APP_NAME = 'KaryaAI';
-export const APP_DESCRIPTION = 'AI Synthesis & Monolithic Grace Productivity';
-
-export const API_ENDPOINTS = {
-    BASE_URL: 'http://localhost:5000/api',
-    AUTH: '/auth',
-    TASKS: '/tasks',
-    PROJECTS: '/projects',
-};
+export const APP_DESCRIPTION = 'KaryaAI handle tasks and turns complexity into calm—helping you organize, prioritize,AI suggestions to do tasks effective with better approaches and move work forward seamlessly.';
 
 export const UI_CONSTANTS = {
     SIDEBAR_WIDTH: '80',
