@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                             <SidebarLink icon={<LayoutDashboard size={20} />} label="Overview" to="/dashboard" active={location.pathname === '/dashboard'} />
                             <SidebarLink icon={<CheckSquare size={20} />} label="My Tasks" to="/dashboard/tasks" active={location.pathname === '/dashboard/tasks'} />
                             <SidebarLink icon={<Folder size={20} />} label="High Priority" to="/dashboard/high-priority" active={location.pathname === '/dashboard/high-priority'} />
-                            <SidebarLink icon={<Sparkles size={20} />} label="AI Assistant" to="/dashboard/ai-assistant" active={location.pathname === '/dashboard/ai-assistant'} />
+                            <SidebarLink icon={<Sparkles size={20} />} label="AI Assistant Content" to="/dashboard/ai-assistant" active={location.pathname === '/dashboard/ai-assistant'} />
                         </nav>
 
                         <div className="mt-auto space-y-6">
@@ -110,7 +110,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                                 className="w-full py-4 bg-error/10 text-error rounded-full font-black text-sm hover:bg-error/20 active:scale-95 transition-all flex items-center justify-center gap-2"
                             >
                                 <LogOut className="w-4 h-4" />
-                                Sign Out
+                                Logout
                             </button>
                         </div>
                     </motion.aside>

@@ -18,15 +18,15 @@ class AIService {
             console.error("GEMINI_API_KEY environment variable is not set.");
             throw new Error("GEMINI_API_KEY environment variable is not set.");
         }
-        
+
         this.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         // Using 'gemini-flash-latest' which is available
         this.model = this.genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-        
+
         try {
             //prompt in the same directory as this file
             const promptPath = path.join(__dirname, "execution_strategist_prompt.md");
-            
+
             try {
                 this.promptTemplate = await fs.readFile(promptPath, "utf-8");
 
@@ -73,7 +73,7 @@ Please provide an optimized execution plan following your strict guidelines.
             return response.text();
         } catch (error) {
             console.error("Gemini Generation Error:", error.message);
-            
+
             // Handle Quota Exceeded (429) specifically
             if (error.status === 429) {
                 throw new Error("AI Quota Exceeded: You have reached the limit for free tier requests. Please wait a few minutes or upgrade your plan in Google AI Studio.");
@@ -82,20 +82,20 @@ Please provide an optimized execution plan following your strict guidelines.
             // Try fallback if primary model fails with 404
             if (error.status === 404) {
                 try {
-
                     const fallbackModel = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+                    // const fallbackModel = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
                     const result = await fallbackModel.generateContent(fullPrompt);
                     const response = await result.response;
                     return response.text();
                 } catch (fallbackError) {
                     console.error("Gemini Fallback Error:", fallbackError.message);
                     if (fallbackError.status === 429) {
-                         throw new Error("AI Quota Exceeded: Fallback model also reached its limit.");
+                        throw new Error("AI Quota Exceeded: Fallback model also reached its limit.");
                     }
                 }
             }
 
-            
+
             throw new Error(`AI Strategy Generation failed: ${error.message}. Ensure your API key is correct and Gemini API is enabled in Google Cloud Console.`);
         }
     }

@@ -215,7 +215,7 @@ export const updateMeService = async (userId, body) => {
     if (email) updateData.email = email.toLowerCase()
 
     const user = await User.findByIdAndUpdate(userId, updateData, {
-        new: true,
+        returnDocument: 'after',
         runValidators: true
     })
 

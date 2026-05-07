@@ -111,14 +111,14 @@ const LoginPage = () => {
 
             <div className="grid grid-cols-2 gap-3">
                 <button 
-                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`}
+                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/google`}
                     className="flex items-center justify-center gap-2 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-95 group border border-surface-variant/10"
                 >
                     <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" />
                     <span className="text-[10px] font-black uppercase tracking-widest">Google</span>
                 </button>
                 <button 
-                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/github`}
+                    onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/github`}
                     className="flex items-center justify-center gap-2 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-95 group border border-surface-variant/10"
                 >
                     <RiGithubFill className="text-on-surface-variant group-hover:text-on-surface transition-colors" size={18} />

@@ -15,21 +15,21 @@ const isProduction = process.env.NODE_ENV === 'production'
 const accessCookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: 'lax',
+    sameSite: isProduction ? 'none' : 'lax',
     maxAge: ACCESS_TOKEN_COOKIE_MAX_AGE
 }
 
 const refreshCookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: 'lax',
+    sameSite: isProduction ? 'none' : 'lax',
     maxAge: REFRESH_TOKEN_COOKIE_MAX_AGE
 }
 
 const clearCookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: 'lax'
+    sameSite: isProduction ? 'none' : 'lax'
 }
 
 const setAuthCookies = (res, accessToken, refreshToken) => {

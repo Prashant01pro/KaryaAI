@@ -60,14 +60,14 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
                         className="absolute inset-0 bg-inverse-surface/40 backdrop-blur-md"
                     />
-                    <motion.div 
+                    <motion.div
                         initial={{ scale: 0.9, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -76,7 +76,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                         <div className="p-8 sm:p-12 space-y-8">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-3xl font-black tracking-tight">
-                                    {taskToEdit ? 'Refine Task' : 'New Objective'}
+                                    {taskToEdit ? 'Refine Task' : 'New Task'}
                                 </h3>
                                 <button onClick={onClose} className="p-3 hover:bg-surface-container rounded-2xl transition-all">
                                     <X className="w-6 h-6" />
@@ -84,7 +84,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                             </div>
 
                             {error && (
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     className="p-4 bg-error/10 border border-error/20 rounded-2xl flex items-center gap-3 text-error text-sm font-bold"
@@ -97,7 +97,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1">Title</label>
-                                    <input 
+                                    <input
                                         required
                                         type="text"
                                         value={formData.title}
@@ -109,7 +109,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
 
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1">Description</label>
-                                    <textarea 
+                                    <textarea
                                         rows="3"
                                         value={formData.description}
                                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -121,7 +121,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1">Priority</label>
-                                        <select 
+                                        <select
                                             value={formData.priority}
                                             onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                                             className="w-full bg-surface-container-low border border-surface-variant/10 rounded-2xl px-6 py-4 font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
@@ -133,7 +133,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1">Category</label>
-                                        <select 
+                                        <select
                                             value={formData.category}
                                             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                             className="w-full bg-surface-container-low border border-surface-variant/10 rounded-2xl px-6 py-4 font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
@@ -147,9 +147,9 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-6">
-                                     <div className="space-y-2">
+                                    <div className="space-y-2">
                                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1">Status</label>
-                                        <select 
+                                        <select
                                             value={formData.status}
                                             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                                             className="w-full bg-surface-container-low border border-surface-variant/10 rounded-2xl px-6 py-4 font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
@@ -159,18 +159,31 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                                             <option value="Completed">Completed</option>
                                         </select>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1">Due Date</label>
-                                        <input 
+                                    <div 
+                                        className="space-y-2 cursor-pointer group"
+                                        onClick={(e) => {
+                                            const input = e.currentTarget.querySelector('input[type="date"]');
+                                            if (input && input.showPicker) {
+                                                try { input.showPicker(); } catch (err) {}
+                                            }
+                                        }}
+                                    >
+                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant px-1 cursor-pointer group-hover:text-primary transition-colors">Due Date</label>
+                                        <input
                                             type="date"
+                                            onClick={(e) => {
+                                                if (e.target.showPicker) {
+                                                    try { e.target.showPicker(); } catch (err) {}
+                                                }
+                                            }}
                                             value={formData.dueDate}
                                             onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                                            className="w-full bg-surface-container-low border border-surface-variant/10 rounded-2xl px-6 py-4 font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                                            className="w-full bg-surface-container-low border border-surface-variant/10 rounded-2xl px-6 py-4 font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer group-hover:border-primary/30"
                                         />
                                     </div>
                                 </div>
 
-                                <button 
+                                <button
                                     disabled={loading}
                                     type="submit"
                                     className="w-full ai-gradient text-on-primary py-5 rounded-full font-black text-xl flex items-center justify-center gap-3 hover:opacity-95 active:scale-95 transition-all shadow-xl shadow-primary/20 disabled:opacity-50"
@@ -180,7 +193,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit = null }) => {
                                     ) : (
                                         <>
                                             <Save className="w-6 h-6" />
-                                            {taskToEdit ? 'Update Task' : 'Initialize Task'}
+                                            {taskToEdit ? 'Update Task' : 'Create Task'}
                                         </>
                                     )}
                                 </button>
