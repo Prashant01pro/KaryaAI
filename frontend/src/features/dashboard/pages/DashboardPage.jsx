@@ -14,7 +14,8 @@ import {
     Wand2,
     Trash2,
     Pencil,
-    Check
+    Check,
+    Info
 } from 'lucide-react';
 import DashboardLayout from '../../../layouts/DashboardLayout';
 import { useTasks } from '../../../context/TaskContext';
@@ -22,6 +23,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { aiService } from '../../tasks/services/aiService';
 import TaskModal from '../../tasks/components/TaskModal';
 import StrategyModal from '../../tasks/components/StrategyModal';
+import TaskDetailModal from '../../tasks/components/TaskDetailModal';
 import ContributionGraph from '../components/ContributionGraph';
 import { isSameDay, format } from 'date-fns';
 
@@ -34,7 +36,8 @@ const DashboardPage = () => {
         taskToEdit,
         openModal,
         closeModal,
-        updateTask
+        updateTask,
+        fetchTasks
     } = useTasks();
     const { user } = useAuth();
     const [isStrategyModalOpen, setIsStrategyModalOpen] = useState(false);
@@ -42,6 +45,7 @@ const DashboardPage = () => {
     const [activeStrategyTitle, setActiveStrategyTitle] = useState('');
     const [isStrategizing, setIsStrategizing] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [detailTask, setDetailTask] = useState(null);
 
     const handleAddTask = () => {
         openModal(null);
@@ -68,6 +72,7 @@ const DashboardPage = () => {
             const response = await aiService.generateTaskStrategy(task._id);
             setActiveStrategy(response.data.strategy);
             setIsStrategyModalOpen(true);
+            fetchTasks();
         } catch (error) {
             console.error('Failed to generate strategy:', error);
             alert('AI Quota might be exceeded or server error. Please try again later.');
@@ -144,17 +149,17 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-6">
+                        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
                             {filteredTasks.length === 0 ? (
                                 <div className="text-center py-20 bg-surface-container-lowest rounded-[3rem] border border-dashed border-surface-variant/20">
                                     <p className="text-on-surface-variant font-bold text-xl">
-                                        No objectives found for {format(selectedDate, 'MMM d')}.
+                                        No Tasks found for {format(selectedDate, 'MMM d')}.
                                     </p>
                                     <button
                                         onClick={handleAddTask}
                                         className="mt-4 text-primary font-black uppercase tracking-widest text-xs hover:underline"
                                     >
-                                        + Initialize New Objective
+                                        + Initialize New Tasks
                                     </button>
                                 </div>
                             ) : (
@@ -208,6 +213,12 @@ const DashboardPage = () => {
                                         </div>
 
                                         <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-surface-container-high/50 mt-4 sm:mt-0 justify-between sm:justify-start">
+                                            <button
+                                                onClick={() => setDetailTask(task)}
+                                                className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/info flex justify-center items-center"
+                                            >
+                                                <Info className="w-5 h-5" />
+                                            </button>
                                             <button
                                                 onClick={() => handleEditTask(task)}
                                                 className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit flex justify-center items-center"
@@ -273,6 +284,12 @@ const DashboardPage = () => {
                 onClose={() => setIsStrategyModalOpen(false)}
                 strategy={activeStrategy}
                 taskTitle={activeStrategyTitle}
+            />
+
+            <TaskDetailModal 
+                isOpen={!!detailTask} 
+                onClose={() => setDetailTask(null)} 
+                task={detailTask} 
             />
 
             {/* Loading Overlay for AI Generation */}

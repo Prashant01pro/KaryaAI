@@ -149,11 +149,15 @@ export const createTaskService = async (body, userId) => {
 export const updateTaskService = async (taskId, body, userId) => {
     await findOwnedTaskById(taskId, userId)
 
+    if (body.status === 'Completed') {
+        body.aiStrategy = null
+    }
+
     const updatedTask = await Task.findOneAndUpdate(
         { _id: taskId, userId, isDeleted: false },
         body,
         {
-            new: true,
+            returnDocument: 'after',
             runValidators: true
         }
     )
@@ -169,7 +173,7 @@ export const deleteTaskService = async (taskId, userId) => {
             deletedAt: new Date()
         },
         {
-            new: true
+            returnDocument: 'after'
         }
     )
 

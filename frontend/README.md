@@ -1,16 +1,61 @@
-# React + Vite
+# KaryaAI Frontend 🎨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, modern dashboard experience for managing tasks and interacting with AI assistants, built for speed and aesthetics.
 
-Currently, two official plugins are available:
+## 🛠️ Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework**: React 19 (Vite)
+- **Styling**: Vanilla CSS & Tailwind CSS (Custom Design System)
+- **Animations**: Framer Motion
+- **Icons**: Lucide React & React Icons
+- **Data Fetching**: Axios (with custom interceptors)
+- **Routing**: React Router 7
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Stunning UI/UX**: Dark-themed, glassmorphic design with premium typography.
+- **Dynamic Dashboard**: Real-time task overview, activity tracking, and priority management.
+- **AI Integration**: Seamless interface for viewing AI-generated execution strategies.
+- **Responsive Layout**: Optimized for desktop and mobile screens.
+- **Smooth Transitions**: Micro-interactions and smooth page transitions using Framer Motion.
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file:
+   ```bash
+   VITE_BACKEND_URL=http://localhost:3000
+   ```
+
+### Running
+
+- **Development**: `npm run dev`
+- **Production Build**: `npm run build`
+
+## 📁 Project Structure
+
+- `/src/features`: Modular feature-based structure (Auth, Tasks, Dashboard).
+- `/src/components`: Shared UI components and layout wrappers.
+- `/src/context`: Global state management (Auth and Task contexts).
+- `/src/hooks`: Custom React hooks for API and UI logic.
+- `/src/api`: Axios instance and interceptor configuration.
+
+## 🔑 Environment Variables
+
+- `VITE_BACKEND_URL`: The base URL of your backend API (e.g., `http://localhost:3000`).
+
+## 🎨 Design System
+
+KaryaAI uses a custom design system focused on:
+- **HSL Colors**: Curated palettes for consistent dark mode.
+- **Rich Micro-animations**: Enhancing user engagement.
+- **Premium Components**: Custom-built inputs, buttons, and cards.

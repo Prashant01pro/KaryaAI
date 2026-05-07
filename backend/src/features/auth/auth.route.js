@@ -15,10 +15,8 @@ router.patch('/me', protectRouteAccess, updateMe)
 
 // Google OAuth
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], session: false }))
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: `${process.env.FRONTEND_URL}/login`, session: false }), socialAuthSuccess)
 
 // GitHub OAuth
 router.get('/github', passport.authenticate('github', { scope: ['user:email'], session: false }))
-router.get('/github/callback', passport.authenticate('github', { failureRedirect: `${process.env.FRONTEND_URL}/login`, session: false }), socialAuthSuccess)
 
 export default router

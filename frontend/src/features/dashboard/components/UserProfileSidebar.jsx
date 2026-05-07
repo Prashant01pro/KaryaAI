@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    X, 
-    User, 
-    Mail, 
-    CheckSquare, 
-    Settings, 
-    LogOut, 
+import {
+    X,
+    User,
+    Mail,
+    CheckSquare,
+    Settings,
+    LogOut,
     BarChart3,
     Edit3
 } from 'lucide-react';
@@ -36,7 +36,7 @@ const UserProfileSidebar = ({ isOpen, onClose, onEditProfile }) => {
                         onClick={onClose}
                         className="fixed inset-0 bg-inverse-surface/20 backdrop-blur-sm z-[100]"
                     />
-                    
+
                     {/* Sidebar */}
                     <motion.aside
                         initial={{ x: 400 }}
@@ -48,7 +48,7 @@ const UserProfileSidebar = ({ isOpen, onClose, onEditProfile }) => {
                         {/* Header */}
                         <div className="flex items-center justify-between p-8 border-b border-surface-container-high/50">
                             <h3 className="text-2xl font-black tracking-tight">Identity</h3>
-                            <button 
+                            <button
                                 onClick={onClose}
                                 className="p-3 hover:bg-surface-container-low rounded-2xl transition-all group"
                             >
@@ -72,7 +72,7 @@ const UserProfileSidebar = ({ isOpen, onClose, onEditProfile }) => {
                                     </div>
                                 </div>
 
-                                <button 
+                                <button
                                     onClick={onEditProfile}
                                     className="w-full flex items-center justify-center gap-3 py-4 bg-surface-container-low hover:bg-surface-container rounded-2xl font-black text-sm transition-all border border-surface-variant/10"
                                 >
@@ -102,8 +102,8 @@ const UserProfileSidebar = ({ isOpen, onClose, onEditProfile }) => {
 
                             {/* Quick Links */}
                             <div className="space-y-3 pt-4">
-                                <Link 
-                                    to="/dashboard/tasks" 
+                                <Link
+                                    to="/dashboard/tasks"
                                     onClick={onClose}
                                     className="flex items-center justify-between p-5 bg-surface-container-lowest hover:bg-surface-container-low rounded-3xl transition-all border border-surface-variant/5 group"
                                 >
@@ -125,7 +125,7 @@ const UserProfileSidebar = ({ isOpen, onClose, onEditProfile }) => {
                                 className="w-full py-5 bg-error/10 text-error rounded-[2rem] font-black text-sm uppercase tracking-[0.1em] hover:bg-error/20 active:scale-95 transition-all flex items-center justify-center gap-3"
                             >
                                 <LogOut className="w-5 h-5" />
-                                Terminate Session
+                                Logout
                             </button>
                         </div>
                     </motion.aside>
