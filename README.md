@@ -110,10 +110,3 @@ KaryaAI is designed for modern cloud environments:
 ---
 
 Built with ❤️ by [Prashant Kumar](https://github.com/Prashant01pro)
-
-
-prashantkumar555810_db_user
-
-RoTZmejyPoJNoKWG
-
-MONGODB_URI=mongodb://127.0.0.1:27017/KaryaAIDB
