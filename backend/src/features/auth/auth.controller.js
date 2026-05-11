@@ -113,5 +113,6 @@ export const socialAuthSuccess = catchAsync(async (req, res) => {
     const { accessToken, refreshToken } = await issueSessionTokens(req.user)
     setAuthCookies(res, accessToken, refreshToken)
 
-    res.redirect(`${process.env.FRONTEND_URL}/dashboard`)
+    // Pass the token in the URL so the frontend (on a different domain) can read it
+    res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${accessToken}`)
 })

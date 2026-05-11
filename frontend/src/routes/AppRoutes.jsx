@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import HomePage from '../features/home/pages/HomePage';
 import LoginPage from '../features/auth/pages/LoginPage';
 import SignupPage from '../features/auth/pages/SignupPage';
+import OAuthCallbackPage from '../features/auth/pages/OAuthCallbackPage';
 import DashboardPage from '../features/dashboard/pages/DashboardPage';
 import TasksListPage from '../features/dashboard/pages/TasksListPage';
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
+                <Route path="/auth/callback" element={<OAuthCallbackPage />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/dashboard/tasks" element={<TasksListPage type="all" />} />
                 <Route path="/dashboard/high-priority" element={<TasksListPage type="high-priority" />} />
