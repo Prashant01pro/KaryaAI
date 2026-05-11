@@ -149,7 +149,7 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                        <div className="space-y-6 max-h-[60vh] overflow-y-auto pt-12 pr-2 custom-scrollbar">
                             {filteredTasks.length === 0 ? (
                                 <div className="text-center py-20 bg-surface-container-lowest rounded-[3rem] border border-dashed border-surface-variant/20">
                                     <p className="text-on-surface-variant font-bold text-xl">
@@ -218,12 +218,14 @@ const DashboardPage = () => {
                                                 className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/info flex justify-center items-center"
                                             >
                                                 <Info className="w-5 h-5" />
+                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/info:opacity-100 transition-all duration-200 whitespace-nowrap uppercase tracking-widest pointer-events-none z-30 shadow-xl border border-white/10">View Details</span>
                                             </button>
                                             <button
                                                 onClick={() => handleEditTask(task)}
                                                 className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-low text-on-surface-variant rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit flex justify-center items-center"
                                             >
                                                 <Pencil className="w-5 h-5" />
+                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/edit:opacity-100 transition-all duration-200 whitespace-nowrap uppercase tracking-widest pointer-events-none z-30 shadow-xl border border-white/10">Edit Item</span>
                                             </button>
                                             <button
                                                 disabled={isStrategizing || task.status === 'Completed'}
@@ -231,13 +233,14 @@ const DashboardPage = () => {
                                                 className="flex-1 sm:flex-none p-3 sm:p-4 bg-primary/10 text-primary rounded-2xl hover:bg-primary hover:text-white transition-all group/ai relative disabled:opacity-30 disabled:grayscale flex justify-center items-center"
                                             >
                                                 <Wand2 className="w-5 h-5" />
-                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/ai:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none z-10">Strategize</span>
+                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/ai:opacity-100 transition-all duration-200 whitespace-nowrap uppercase tracking-widest pointer-events-none z-30 shadow-xl border border-white/10">Strategize</span>
                                             </button>
                                             <button
                                                 onClick={() => deleteTask(task._id)}
-                                                className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-high text-on-surface-variant rounded-2xl hover:bg-error/10 hover:text-error transition-all flex justify-center items-center"
+                                                className="flex-1 sm:flex-none p-3 sm:p-4 bg-surface-container-high text-on-surface-variant rounded-2xl hover:bg-error/10 hover:text-error transition-all flex justify-center items-center relative group/delete"
                                             >
                                                 <Trash2 className="w-5 h-5" />
+                                                <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-error text-white text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/delete:opacity-100 transition-all duration-200 whitespace-nowrap uppercase tracking-widest pointer-events-none z-30 shadow-xl">Remove Task</span>
                                             </button>
                                         </div>
                                     </motion.div>

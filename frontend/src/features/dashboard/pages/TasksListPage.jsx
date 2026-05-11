@@ -166,7 +166,7 @@ const TasksListPage = ({ type = 'all' }) => {
                 </div>
 
                 {/* List */}
-                <div className="space-y-6 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-6 max-h-[70vh] overflow-y-auto pt-12 pr-2 custom-scrollbar">
                     {loading && filteredTasks.length === 0 ? (
                         <div className="flex justify-center py-20">
                             <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full" />
@@ -311,22 +311,23 @@ const TasksListPage = ({ type = 'all' }) => {
                                         className="p-3 bg-surface-container-low text-on-surface-variant rounded-xl hover:bg-surface-container-high hover:text-primary transition-all relative group/info"
                                     >
                                         <Info className="w-5 h-5" />
-                                        <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/info:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">View Details</span>
+                                        <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/info:opacity-100 transition-all duration-200 whitespace-nowrap pointer-events-none z-30 shadow-xl border border-white/10 uppercase tracking-widest">View Details</span>
                                     </button>
                                     <button
                                         onClick={() => handleEditTask(task)}
                                         className="p-3 bg-surface-container-low text-on-surface-variant rounded-xl hover:bg-surface-container-high hover:text-primary transition-all relative group/edit"
                                     >
                                         <Pencil className="w-5 h-5" />
-                                        <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/edit:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Edit Item</span>
+                                        <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/edit:opacity-100 transition-all duration-200 whitespace-nowrap pointer-events-none z-30 shadow-xl border border-white/10 uppercase tracking-widest">Edit Item</span>
                                     </button>
                                     {task.aiStrategy ? (
                                         <button
                                             onClick={() => showSavedStrategy(task)}
-                                            className="flex-1 sm:flex-none px-6 py-3 bg-primary/10 text-primary rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-primary hover:text-white transition-all flex items-center gap-2"
+                                            className="flex-1 sm:flex-none px-6 py-3 bg-primary/10 text-primary rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-primary hover:text-white transition-all flex items-center gap-2 relative group/view"
                                         >
                                             <Wand2 className="w-4 h-4" />
                                             View Insight
+                                            <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/view:opacity-100 transition-all duration-200 whitespace-nowrap pointer-events-none z-30 shadow-xl border border-white/10 uppercase tracking-widest">Open Strategy</span>
                                         </button>
                                     ) : (
                                         <button
@@ -335,14 +336,15 @@ const TasksListPage = ({ type = 'all' }) => {
                                             className="flex-1 sm:flex-none p-3 bg-surface-container-low text-primary rounded-xl hover:bg-primary/10 transition-all group/ai relative disabled:opacity-30 disabled:grayscale"
                                         >
                                             <Wand2 className="w-5 h-5" />
-                                            <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-3 py-1 rounded font-black opacity-0 group-hover/ai:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Get AI Strategy</span>
+                                            <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/ai:opacity-100 transition-all duration-200 whitespace-nowrap pointer-events-none z-30 shadow-xl border border-white/10 uppercase tracking-widest">Get AI Strategy</span>
                                         </button>
                                     )}
                                     <button
                                         onClick={() => deleteTask(task._id)}
-                                        className="p-3 bg-surface-container-low text-on-surface-variant rounded-xl hover:bg-error/10 hover:text-error transition-all"
+                                        className="p-3 bg-surface-container-low text-on-surface-variant rounded-xl hover:bg-error/10 hover:text-error transition-all relative group/delete"
                                     >
                                         <Trash2 className="w-5 h-5" />
+                                        <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-error text-white text-[10px] px-3 py-1.5 rounded-lg font-black opacity-0 group-hover/delete:opacity-100 transition-all duration-200 whitespace-nowrap pointer-events-none z-30 shadow-xl uppercase tracking-widest">Remove Task</span>
                                     </button>
                                 </div>
                             </motion.div>

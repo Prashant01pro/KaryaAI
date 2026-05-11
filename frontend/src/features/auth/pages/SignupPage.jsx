@@ -57,7 +57,7 @@ const SignupPage = () => {
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-highest transition-all duration-300 placeholder:text-outline/60 font-medium text-sm text-on-surface" 
                             id="name" 
                             placeholder="John Doe" 
                             type="text"
@@ -76,7 +76,7 @@ const SignupPage = () => {
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-highest transition-all duration-300 placeholder:text-outline/60 font-medium text-sm text-on-surface" 
                             id="username" 
                             placeholder="johndoe" 
                             type="text"
@@ -95,7 +95,7 @@ const SignupPage = () => {
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-highest transition-all duration-300 placeholder:text-outline/60 font-medium text-sm text-on-surface" 
                             id="email" 
                             placeholder="name@example.com" 
                             type="email"
@@ -114,7 +114,7 @@ const SignupPage = () => {
                         </div>
                         <input 
                             required
-                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all duration-300 placeholder:text-outline/60 font-medium text-sm" 
+                            className="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-xl border-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-highest transition-all duration-300 placeholder:text-outline/60 font-medium text-sm text-on-surface" 
                             id="password" 
                             placeholder="••••••••" 
                             type="password"
